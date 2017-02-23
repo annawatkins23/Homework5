@@ -56,8 +56,8 @@ blastn -query $test -db Arabidopsis_thaliana/CHR_I/NC_003070.gbk -outfmt 7 >qtes
 ##example query to determine amount of hits in database
 #grep "ATMG00020.1" qtest_dbcp.blastn_out 
 #grep "ATMG00020.1" qtest_dbI.blastn_out 
-blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003070.gbk Arabidopsis_thaliana/CHR_III/NC_003070.gbk Arabidopsis_thaliana/CHR_IV/NC_003070.gbk" -query $test -outfmt 7 | less -S 
-blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query $test -outfmt 7 | less -S 
+#blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003070.gbk Arabidopsis_thaliana/CHR_III/NC_003070.gbk Arabidopsis_thaliana/CHR_IV/NC_003070.gbk" -query $test -outfmt 7 | less -S 
+#blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query $test -outfmt 7 | less -S 
 
 ##Blast and awk command build script and analyze only those results with one matched sequence hit, and a good quality score 
 #blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query $test -evalue 0.00001 -max_target_seqs 1 -outfmt 7 | less -S 
@@ -76,5 +76,6 @@ blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabi
 ##Building process for the command to isolate instances where no matched sequences occured (no hits), and add this information into the RawCounts.txt file
 #blastn -db "ATcp.fasta ATmt.fasta ATchrV.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arbidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHRIV/NC_003075.gbk" -query test.fasta -outfmt 7 -evalue 0.00001 -max_target_seqs 1 | grep -c ' 0 hits'
 
-NUM=$(blastn -db "ATcp.fasta ATmt.fasta ATchrV.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arbidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHRIV/NC_003075.gbk" -query test.fasta -outfmt 7 -evalue 0.00001 -max_target_seqs 1 | grep -c ' 0 hits' ) && echo $NUM No_hits >> RawCounts.txt
+NUM=$(blastn -db "ATmt.fasta ATcp.fasta ATmt.fasta ATchrV.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arbidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHRIV/NC_003075.gbk" -query test.fast -outfmt 7 -evalue 0.00001 -max_target_seqs 1 | grep -c ' 0 hits' ) && echo $NUM No_hits >> RawCounts.txt
 head RawCounts.txt
+########################
