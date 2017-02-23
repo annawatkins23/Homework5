@@ -1,0 +1,70 @@
+#beginning of class
+mkdir ClassLectureFeb21
+ls
+cd class_shared/
+ls
+cd GuestLectureII/
+ls
+cd class_materials/
+ls
+cd ..
+cp ./class_materials/ ~/ClassLectureFeb21/
+ls
+cd ..
+cd..
+cd ..
+cd ClassLectureFeb21/
+ls
+cd ..
+cp ./class_shared/GuestLectureII/AT* ./ClassLectureFeb21/
+cd ClassLectureFeb21/
+ls
+cp ./class_shared/GuestLectureII/class_materials/AT* ./ClassLectureFeb21/
+cp ./class_shared/GuestLectureII/test.fasta ./ClassLectureFeb21/
+cp ~/class_shared/GuestLectureII/test.fasta ./ClassLectureFeb21/
+cd ..
+cp ./class_shared/GuestLectureII/test.fasta ./ClassLectureFeb21/
+cd ClassLectureFeb21/
+ls
+module load blast+
+#Creation of Blast databases for mitochondrial, chlorophyll, and Chromosome 5 DNA sequences fpr Arabidopsis Thaliana
+makeblastdb -in ATchrV.fasta -dbtype nucl
+makeblastdb -in ATcp.fasta -dbtype nucl
+makeblastdb -in ATmt.fasta -dbtype nucl
+head ATmt.fasta
+head ATcp.fasta
+head ATchrV.fasta
+less /apps/bio/unzipped/genomes/Arabidopsis_thaliana/README
+ls /apps/bio/unzipped/genomes/Arabidopsis_thaliana/CHR_I
+ls -s /apps/bio/unzipped/genomes/Arabidopsis_thaliana/ .
+ls
+ln -s /apps/bio/unzipped/genomes/Arabidopsis_thaliana/ .
+ls
+blastn help
+blastn --help
+blastn -help
+blastn -query test.fasta -db ATmt.fasta -outfmt 17 | less -S
+blastn -query test.fasta -db ATmt.fasta -outfmt 6 | less -S
+blastn -query test.fasta -db ATmt.fasta -outfmt 7 | less -S
+blastn -query test.fasta -db ATcp.fasta -outfmt 7 | less -S
+blastn -query test.fasta -db ATmt.fasta -outfmt 7 | less -S
+
+blastn -query test.fasta -db ATmt.fasta -outfmt 7 >qtest_dbmt.blastn_out
+blastn -query test.fasta -db ATmt.fasta -outfmt 7 >qtest_dbmt.blastn_out
+blastn -query test.fasta -db ATcp.fasta -outfmt 7 >qtest_dbcp.blastn_out
+blastn -query test.fasta -db Arabidopsis_thaliana/CHR_I/NC_003070.gbk -outfmt 7 >qtest_dbI.blastn_out
+ls
+less -S qtest_dbI.blastn_out 
+grep "ATMG00020.1" qtest_dbcp.blastn_out 
+grep "ATMG00020.1" qtest_dbI.blastn_out 
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003070.gbk Arabidopsis_thaliana/CHR_III/NC_003070.gbk Arabidopsis_thaliana/CHR_IV/NC_003070.gbk" -query test.fasta -outfmt 7 | less -S 
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -outfmt 7 | less -S 
+blastn -help
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -evalue 0.00001 -max_target_seqs 1 -outfmt 7 | less -S 
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -evalue 0.00001 -max_target_seqs 1 -outfmt 7 |egrep -v '^#' | less -S 
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -evalue 0.00001 -max_target_seqs 1 -outfmt 7 |egrep -v '^#' | sed 's/[[:space:]]1_\/home.*NC_[0-9]*[[:space:]]/\tNT\t/' | awk '{print $1,$2}' | less -S 
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -evalue 0.00001 -max_target_seqs 1 -outfmt 7 |egrep -v '^#' | sed 's/[[:space:]]1_\/home.*NC_[0-9]*[[:space:]]/\tNT\t/' | awk '{print $1,$2}' |sort | uniq | awk '{print $2}' | sort | uniq -c | sort -n > RawCounts.txt 
+head RawCounts.txt
+less -S qtest_dbI.blastn_out 
+grep '0 hits ' qtest_dbcp.blastn_out 
+grep -c '0 hits ' qtest_dbcp.blastn_out 
