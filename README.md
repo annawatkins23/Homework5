@@ -17,12 +17,20 @@ makeblastdb -in ATmt.fasta -dbtype nucl
 
 The following BLAST command were used to isolate the number of query hits within the chromosomes, mitchondria, and chlorophyl sequenes and output that information into an easy to read format. This command, however, does leave out the areas where no query hit was found.
 ````
-blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -evalue 0.00001 -max_target_seqs 1 -outfmt 7 |egrep -v '^#' | sed 's/[[:space:]]1_\/home.*NC_[0-9]*[[:space:]]/\tNT\t/' | awk '{print $1,$2}' |sort | uniq | awk '{print $2}' | sort | uniq -c | sort -n > RawCounts.txt 
+blastn -db "ATmt.fasta ATcp.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk \n
+Arabidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk \n
+Arabidopsis_thaliana/CHR_IV/NC_003075.gbk" -query test.fasta -evalue 0.00001 \n
+-max_target_seqs 1 -outfmt 7 |egrep -v '^#' | sed 's/[[:space:]]1_\/home.*NC_[0-9]*[[:space:]]/\tNT\t/' \n
+| awk '{print $1,$2}'|sort | uniq | awk '{print $2}' | sort | uniq -c | sort -n > RawCounts.txt
 ````
 
 This is the blast command that was used to determine the numbers where no query hits were determined. This number was saved into a variable to then be printed into the same file as the previously obtained infomation for easy access to the information.
 ````
-NUM=$(blastn -db "ATmt.fasta ATcp.fasta ATmt.fasta ATchrV.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arbidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHRIV/NC_003075.gbk" -query test.fast -outfmt 7 -evalue 0.00001 -max_target_seqs 1 | grep -c ' 0 hits' ) && echo $NUM No_hits >> RawCounts.txt
+NUM=$(blastn -db "ATmt.fasta ATcp.fasta ATmt.fasta ATchrV.fasta \n
+Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arbidopsis_thaliana/CHR_II/NC_003071.gbk \n
+Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHRIV/NC_003075.gbk" \n
+-query test.fast -outfmt 7 -evalue 0.00001 -max_target_seqs 1 | grep -c ' 0 hits' ) \n
+&& echo $NUM No_hits >> RawCounts.txt
 ````
 
 ##Output of the Code
