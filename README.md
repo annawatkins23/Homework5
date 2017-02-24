@@ -24,3 +24,13 @@ This is the blast command that was used to determine the numbers where no query 
 ````
 NUM=$(blastn -db "ATmt.fasta ATcp.fasta ATmt.fasta ATchrV.fasta Arabidopsis_thaliana/CHR_I/NC_003070.gbk Arbidopsis_thaliana/CHR_II/NC_003071.gbk Arabidopsis_thaliana/CHR_III/NC_003074.gbk Arabidopsis_thaliana/CHRIV/NC_003075.gbk" -query test.fast -outfmt 7 -evalue 0.00001 -max_target_seqs 1 | grep -c ' 0 hits' ) && echo $NUM No_hits >> RawCounts.txt
 ````
+
+##Output of the Code
+The resulting information from this command will be in a tab delimited file that will resemble the following table without the header. In this table MT reprsents mitchondrial, CP represents chlorophyl, NT represents chromosomal.
+
+| Number of Query Hits | DNA Seq. Type |
+|----------------------|---------------|
+| 76 | MT |
+| 132 | CP |
+| 370 | NT |
+| 1 | No_hits |
