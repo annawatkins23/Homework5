@@ -48,10 +48,10 @@ ln -s /apps/bio/unzipped/genomes/Arabidopsis_thaliana/ .
 #blastn -query $test -db ATmt.fasta -outfmt 7 | less -S
 
 #output from blast saved into files to be compared later
-blastn -query $test -db ATmt.fasta -outfmt 7 >qtest_dbmt.blastn_out
-blastn -query $test -db ATmt.fasta -outfmt 7 >qtest_dbmt.blastn_out
-blastn -query $test -db ATcp.fasta -outfmt 7 >qtest_dbcp.blastn_out
-blastn -query $test -db Arabidopsis_thaliana/CHR_I/NC_003070.gbk -outfmt 7 >qtest_dbI.blastn_out
+#blastn -query $test -db ATmt.fasta -outfmt 7 >qtest_dbmt.blastn_out
+#blastn -query $test -db ATmt.fasta -outfmt 7 >qtest_dbmt.blastn_out
+#blastn -query $test -db ATcp.fasta -outfmt 7 >qtest_dbcp.blastn_out
+#blastn -query $test -db Arabidopsis_thaliana/CHR_I/NC_003070.gbk -outfmt 7 >qtest_dbI.blastn_out
 
 ##example query to determine amount of hits in database
 #grep "ATMG00020.1" qtest_dbcp.blastn_out 
