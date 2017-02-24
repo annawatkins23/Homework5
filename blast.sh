@@ -3,7 +3,7 @@
 #################
 
 ####################################
-##Commands needed before varaibles and modules
+##Commands to run before varaibles and modules
 #A directory was created for the class lecture
 mkdir ClassLectureFeb21
 
